@@ -5,9 +5,9 @@
 # <xbar.author>Nicola Fiorillo</xbar.author>
 # <xbar.author.github>nicolafiorillo</xbar.author.github>
 # <xbar.desc>Show bitcoin/USD value getting data from https://www.coingecko.com/</xbar.desc>
-# <xbar.image>https://github.com/nicolafiorillo/xbar-plugins/raw/master/images/btc_tracker.png</xbar.image>
+# <xbar.image>https://github.com/nicolafiorillo/xbar-plugins/raw/main/images/btc_tracker.png</xbar.image>
 # <xbar.dependencies>python3</xbar.dependencies>
-# <xbar.abouturl>https://github.com/nicolafiorillo/xbar-plugins/blob/master/README.md</xbar.abouturl>
+# <xbar.abouturl>https://github.com/nicolafiorillo/xbar-plugins/raw/main/README.md</xbar.abouturl>
 #
 # by Nicola Fiorillo (https://www.nicolafiorillo.com, https://github.com/nicolafiorillo)
 
