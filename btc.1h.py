@@ -7,7 +7,7 @@
 # <xbar.desc>Show bitcoin/USD value getting data from https://www.coingecko.com/</xbar.desc>
 # <xbar.image>https://github.com/nicolafiorillo/xbar-plugins/raw/main/images/btc_tracker.png</xbar.image>
 # <xbar.dependencies>python3</xbar.dependencies>
-# <xbar.abouturl>https://github.com/nicolafiorillo/xbar-plugins/raw/main/README.md</xbar.abouturl>
+# <xbar.abouturl>https://github.com/nicolafiorillo/xbar-plugins/blob/main/README.md</xbar.abouturl>
 #
 # by Nicola Fiorillo (https://www.nicolafiorillo.com, https://github.com/nicolafiorillo)
 
