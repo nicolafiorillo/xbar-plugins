@@ -16,7 +16,7 @@ import http.client
 import json
 
 def title(value):
-    return f'BTC: ${value}'
+    return f'₿: ${value}'
 
 
 if __name__ == '__main__':
