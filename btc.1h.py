@@ -15,15 +15,20 @@ import datetime
 import http.client
 import json
 
-def title(value):
-    return f'₿: ${value}'
+def btc_vs_usd(value):
+    return f'1₿: ${value}'
+
+
+def usd_vs_sat(value):
+    return f'1$: {value} sats'
 
 
 if __name__ == '__main__':
 
-    final = title('n.a.')
+    btc_usd = btc_vs_usd('--,--')
     updated_at = 'n.a'
     error = False
+    usd_sat = usd_vs_sat('--')
 
     try:
         conn = http.client.HTTPSConnection("api.coingecko.com")
@@ -33,18 +38,20 @@ if __name__ == '__main__':
             print("Error: " + str(response.status) + " " + response.reason)
         else:
             data = json.loads(response.read())
-            value = data["bitcoin"]["usd"]
+            usd = data["bitcoin"]["usd"]
             updated_at = datetime.datetime.fromtimestamp(data["bitcoin"]["last_updated_at"])
 
-            final = title(value)
+            btc_usd = btc_vs_usd(usd)
+            usd_sats = usd_vs_sat(round(100000000 / usd))
         conn.close()
     except Exception:
         error = True
 
-    print(final)
-
+    print(btc_usd)
     print('---')
+
     if not error:
+        print(usd_sats)
         print(f'Last update: {updated_at}')
     else:
         print('Cannot get data read from coingecko.com')
