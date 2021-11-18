@@ -10,13 +10,22 @@
 # <xbar.abouturl>https://github.com/nicolafiorillo/xbar-plugins/blob/main/README.md</xbar.abouturl>
 #
 # by Nicola Fiorillo (https://www.nicolafiorillo.com, https://github.com/nicolafiorillo)
+#
+# Coingecko API documentation:
+# https://www.coingecko.com/en/api/documentation
+#
 
 import datetime
 import http.client
 import json
 
-def btc_vs_usd(value):
-    return f'1₿: ${value}'
+GREEN = '\033[32m'
+RED = '\033[31m'
+RESET = '\033[0m'
+
+def btc_vs_usd(value, percentage_diff):
+    color = RED if percentage_diff < 0.0 else GREEN
+    return f'1₿: ${value} ({color}{percentage_diff}%{RESET})'
 
 
 def usd_vs_sat(value):
@@ -25,14 +34,15 @@ def usd_vs_sat(value):
 
 if __name__ == '__main__':
 
-    btc_usd = btc_vs_usd('--,--')
+    percentage_diff = 0.0
+    btc_usd = btc_vs_usd('--,--', percentage_diff)
     updated_at = 'n.a'
     error = False
     usd_sat = usd_vs_sat('--')
 
     try:
         conn = http.client.HTTPSConnection("api.coingecko.com")
-        conn.request("GET", "/api/v3/simple/price?ids=bitcoin&vs_currencies=USD&include_last_updated_at=true", None, {"accept": "application/json"})
+        conn.request("GET", "/api/v3/simple/price?ids=bitcoin&vs_currencies=USD&include_last_updated_at=true&include_24hr_change=true", None, {"accept": "application/json"})
         response = conn.getresponse()
         if response.status != 200:
             print("Error: " + str(response.status) + " " + response.reason)
@@ -40,8 +50,9 @@ if __name__ == '__main__':
             data = json.loads(response.read())
             usd = data["bitcoin"]["usd"]
             updated_at = datetime.datetime.fromtimestamp(data["bitcoin"]["last_updated_at"])
+            percentage_diff = round(data["bitcoin"]["usd_24h_change"], 1)
 
-            btc_usd = btc_vs_usd(usd)
+            btc_usd = btc_vs_usd(usd, percentage_diff)
             usd_sats = usd_vs_sat(round(100000000 / usd))
         conn.close()
     except Exception:
@@ -54,5 +65,5 @@ if __name__ == '__main__':
         print(usd_sats)
         print(f'Last update: {updated_at}')
     else:
-        print('Cannot get data read from coingecko.com')
+        print('Cannot get data from coingecko.com')
 
